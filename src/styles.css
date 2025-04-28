@@ -1,0 +1,83 @@
+/* Estilos globales */
+
+.container {
+    margin: 0 auto;
+    padding: 16px;
+    max-width: 800px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  h1, h2, h3 {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 16px;
+    color: #333;
+  }
+  
+  h4 {
+    font-size: 20px;
+    font-weight: semi-bold;
+    color: #555;
+  }
+  
+  label {
+    display: block;
+    font-size: 14px;
+    font-weight: medium;
+    color: #444;
+    margin-bottom: 8px;
+  }
+  
+  input, select, textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    box-sizing: border-box;
+    margin-bottom: 16px;
+  }
+  
+  input:focus, select:focus, textarea:focus {
+    outline: none;
+    border-color: #5c6bc0;
+    box-shadow: 0 0 4px rgba(92, 107, 192, 0.5);
+  }
+  
+  button {
+    padding: 12px;
+    background-color: #5c6bc0;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  button:hover {
+    background-color: #3f51b5;
+  }
+  
+  button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+  
+  .step-item {
+    margin-bottom: 16px;
+    padding: 16px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .step-item select, .step-item textarea {
+    margin-bottom: 12px;
+  }
+  
+  .step-item .prioridad {
+    background-color: #fff3e0;
+    border-color: #ffb74d;
+  }
+  

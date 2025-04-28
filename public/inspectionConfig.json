@@ -1,0 +1,156 @@
+{
+    "steps": [
+      {
+        "stepName": "Inspección Exterior",
+        "items": [
+          {
+            "name": "Carrocería general",
+            "estado": "",
+            "observaciones": "",
+            "prioridad": ""
+          },
+          {
+            "name": "Luces delanteras",
+            "estado": "",
+            "observaciones": "",
+            "prioridad": ""
+          },
+          {
+            "name": "Luces traseras",
+            "estado": "",
+            "observaciones": "",
+            "prioridad": ""
+          },
+          {
+            "name": "Parabrisas",
+            "estado": "",
+            "observaciones": "",
+            "prioridad": ""
+          },
+          {
+            "name": "Llantas",
+            "estado": "",
+            "observaciones": "",
+            "prioridad": ""
+          }
+        ]
+      },
+      {
+        "stepName": "Inspección Interior",
+        "items": [
+          {
+            "name": "Asientos",
+            "estado": "",
+            "observaciones": "",
+            "prioridad": ""
+          },
+          {
+            "name": "Cinturones de seguridad",
+            "estado": "",
+            "observaciones": "",
+            "prioridad": ""
+          },
+          {
+            "name": "Panel de instrumentos",
+            "estado": "",
+            "observaciones": "",
+            "prioridad": ""
+          },
+          {
+            "name": "Sistema de audio",
+            "estado": "",
+            "observaciones": "",
+            "prioridad": ""
+          }
+        ]
+      },
+      {
+        "stepName": "Inspección del Motor",
+        "items": [
+          {
+            "name": "Nivel de aceite",
+            "estado": "",
+            "observaciones": "",
+            "prioridad": ""
+          },
+          {
+            "name": "Sistema de refrigeración",
+            "estado": "",
+            "observaciones": "",
+            "prioridad": ""
+          },
+          {
+            "name": "Correas y mangueras",
+            "estado": "",
+            "observaciones": "",
+            "prioridad": ""
+          },
+          {
+            "name": "Batería",
+            "estado": "",
+            "observaciones": "",
+            "prioridad": ""
+          }
+        ]
+      },
+      {
+        "stepName": "Inspección de Frenos y Suspensión",
+        "items": [
+          {
+            "name": "Frenos delanteros",
+            "estado": "",
+            "observaciones": "",
+            "prioridad": ""
+          },
+          {
+            "name": "Frenos traseros",
+            "estado": "",
+            "observaciones": "",
+            "prioridad": ""
+          },
+          {
+            "name": "Amortiguadores",
+            "estado": "",
+            "observaciones": "",
+            "prioridad": ""
+          },
+          {
+            "name": "Suspensión",
+            "estado": "",
+            "observaciones": "",
+            "prioridad": ""
+          }
+        ]
+      },
+      {
+        "stepName": "Prueba de Manejo",
+        "items": [
+          {
+            "name": "Dirección",
+            "estado": "",
+            "observaciones": "",
+            "prioridad": ""
+          },
+          {
+            "name": "Aceleración",
+            "estado": "",
+            "observaciones": "",
+            "prioridad": ""
+          },
+          {
+            "name": "Frenos",
+            "estado": "",
+            "observaciones": "",
+            "prioridad": ""
+          },
+          {
+            "name": "Estabilidad",
+            "estado": "",
+            "observaciones": "",
+            "prioridad": ""
+          }
+        ]
+      }
+    ]
+  }
+  
