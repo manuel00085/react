@@ -1,83 +1,249 @@
 /* Estilos globales */
-
 .container {
-    margin: 0 auto;
-    padding: 16px;
-    max-width: 800px;
-    background-color: white;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin: 0 auto;
+  padding: 16px;
+ width: 100vh;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+h1, h2, h3 {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 16px;
+  color: #333;
+}
+
+h4 {
+  font-size: 20px;
+  font-weight: 600;
+  color: #555;
+}
+
+label {
+  display: block;
+  font-size: 14px;
+  font-weight: 500;
+  color: #444;
+  margin-bottom: 8px;
+}
+
+input, select, textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  box-sizing: border-box;
+  margin-bottom: 16px;
+}
+
+input:focus, select:focus, textarea:focus {
+  outline: none;
+  border-color: #5c6bc0;
+  box-shadow: 0 0 4px rgba(92, 107, 192, 0.5);
+}
+
+/* Estilos generales de botones */
+button {
+  padding: 12px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s;
+}
+
+button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+/* Variantes de botones */
+.bg-blue {
+  background-color: #3b82f6;
+  color: white;
+}
+
+.bg-blue:hover {
+  background-color: #2563eb;
+}
+
+.bg-green {
+  background-color: #22c55e;
+  color: white;
+}
+
+.bg-green:hover {
+  background-color: #16a34a;
+}
+
+.bg-gray {
+  background-color: #d1d5db;
+  color: #333;
+}
+
+.bg-gray:hover {
+  background-color: #9ca3af;
+}
+
+/* Contenedor de navegación */
+.button-nav {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  margin-top: 20px;
+}
+
+/* Estilo de contenedor de pasos */
+.step-item {
+  margin-bottom: 16px;
+  padding: 16px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  width: 100%
+
+  ;
+}
+.button-step{
+  margin-top: 30px;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.step-item select,
+.step-item textarea {
+  margin-bottom: 12px;
+}
+
+.step-item .prioridad {
+  background-color: #fff3e0;
+  border-color: #ffb74d;
+}
+
+/* Responsive para móviles */
+@media (max-width: 600px) {
+  .container {
+    margin-top: 5px;
+    padding: 20px;
+    width: 90%;
+    border-radius: 0;
+    box-shadow: none;
+    
   }
-  
+
   h1, h2, h3 {
-    font-size: 24px;
-    font-weight: bold;
-    margin-bottom: 16px;
-    color: #333;
+    font-size: 18px;
   }
-  
+
   h4 {
-    font-size: 20px;
-    font-weight: semi-bold;
-    color: #555;
+    font-size: 16px;
   }
-  
+
   label {
-    display: block;
-    font-size: 14px;
-    font-weight: medium;
-    color: #444;
-    margin-bottom: 8px;
+    font-size: 13px;
   }
-  
+
   input, select, textarea {
-    width: 100%;
-    padding: 12px;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    box-sizing: border-box;
-    margin-bottom: 16px;
+    padding: 10px;
   }
-  
-  input:focus, select:focus, textarea:focus {
-    outline: none;
-    border-color: #5c6bc0;
-    box-shadow: 0 0 4px rgba(92, 107, 192, 0.5);
-  }
-  
+
   button {
-    padding: 12px;
-    background-color: #5c6bc0;
-    color: white;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: background-color 0.3s;
+    padding: 10px;
+    font-size: 14px;
   }
-  
-  button:hover {
-    background-color: #3f51b5;
-  }
-  
-  button:disabled {
-    background-color: #ccc;
-    cursor: not-allowed;
-  }
-  
+
   .step-item {
-    margin-bottom: 16px;
-    padding: 16px;
-    border: 1px solid #ddd;
-    border-radius: 6px;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    width: 100%
   }
-  
-  .step-item select, .step-item textarea {
-    margin-bottom: 12px;
+
+  .button-nav {
+    flex-direction: column;
   }
-  
-  .step-item .prioridad {
-    background-color: #fff3e0;
-    border-color: #ffb74d;
+
+  .button-nav button {
+    width: 100%;
   }
-  
+}
+
+
+
+
+.vehicle-data-container {
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  margin-bottom: 24px;
+}
+
+.vehicle-data-title {
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 16px;
+  border-bottom: 2px solid #5c6bc0;
+  padding-bottom: 8px;
+}
+
+.vehicle-data-content p {
+  margin-bottom: 12px;
+  font-size: 16px;
+  color: #555;
+}
+
+.vehicle-data-label {
+  font-weight: 600;
+  color: #222;
+}
+
+.vehicle-data-section {
+  margin-top: 20px;
+}
+
+.vehicle-data-list {
+  list-style-type: disc;
+  padding-left: 20px;
+  margin-top: 8px;
+}
+
+.vehicle-data-list-item {
+  margin-bottom: 6px;
+  color: #444;
+  font-size: 15px;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .vehicle-data-container {
+    padding: 20px;
+  }
+
+  .vehicle-data-title {
+    font-size: 20px;
+  }
+
+  .vehicle-data-content p {
+    font-size: 14px;
+  }
+
+  .vehicle-data-list-item {
+    font-size: 14px;
+  }
+}
+
+.buttonservice-container{
+  margin-top: 20px;
+  justify-content: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+
+
+}
+
+.buttonservice-container button{
+  height: 40px;
+  width: 200px;
+}

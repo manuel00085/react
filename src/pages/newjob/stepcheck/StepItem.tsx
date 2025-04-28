@@ -13,7 +13,7 @@ const StepItem: React.FC<StepItemProps> = ({ item, itemIndex, items, handleItemC
   const currentItem = items[itemIndex];
 
   return (
-    <div key={itemIndex} className="mb-4">
+    <div key={itemIndex} className="step-item">
       <h4>{item}</h4>
       <div className="mb-2">
         <label>Estado:</label>

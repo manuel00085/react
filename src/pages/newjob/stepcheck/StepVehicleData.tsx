@@ -27,24 +27,28 @@ const StepVehicleData: React.FC<Props> = ({ vehicleData, setStep, setItems }) =>
     setItems(initialItems);
   };
 
-
   return (
-    <div>
-      <h3 className="text-lg font-semibold">Datos del Vehículo</h3>
-      <div className="mt-4">
-        <p><strong>Marca:</strong> {vehicleData.marca}</p>
-        <p><strong>Modelo:</strong> {vehicleData.modelo}</p>
-        <p><strong>Año:</strong> {vehicleData.año}</p>
-        <p><strong>Historial de Servicio:</strong></p>
-        <ul>
-          {vehicleData.historialServicio.map((servicio, index) => (
-            <li key={index}>{servicio}</li>
-          ))}
-        </ul>
-        <p><strong>Cliente:</strong> {vehicleData.cliente.nombre}</p>
-        <p><strong>Teléfono:</strong> {vehicleData.cliente.telefono}</p>
-      </div>
+    <div className="vehicle-data-container">
+      <h3 className="vehicle-data-title">Datos del Vehículo</h3>
+      <div className="vehicle-data-content">
+        <p><span className="vehicle-data-label">Marca:</span> {vehicleData.marca}</p>
+        <p><span className="vehicle-data-label">Modelo:</span> {vehicleData.modelo}</p>
+        <p><span className="vehicle-data-label">Año:</span> {vehicleData.año}</p>
 
+        <div className="vehicle-data-section">
+          <p className="vehicle-data-label">Historial de Servicio:</p>
+          <ul className="vehicle-data-list">
+            {vehicleData.historialServicio.map((servicio, index) => (
+              <li key={index} className="vehicle-data-list-item">{servicio}</li>
+            ))}
+          </ul>
+        </div>
+
+        <div className="vehicle-data-section">
+          <p><span className="vehicle-data-label">Cliente:</span> {vehicleData.cliente.nombre}</p>
+          <p><span className="vehicle-data-label">Teléfono:</span> {vehicleData.cliente.telefono}</p>
+        </div>
+      </div>
     </div>
   );
 };

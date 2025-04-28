@@ -60,10 +60,20 @@ const CarInspectionWizard: React.FC = () => {
   // Función para manejar la opción de inspección seleccionada
   const handleInspectionOptionChange = (option: string) => {
     setInspectionOption(option);
-    setItems([]); // Limpiar los ítems seleccionados de inspección cuando se cambia la opción
-    setStep(3); // Avanzar al paso de inspección (empezar a mostrar los ítems)
+  
+    const initialItems = inspectionConfig.steps.flatMap((step: any) =>
+      step.items.map((item: any) => ({
+        nombre: item.name,
+        estado: "",
+        observaciones: "",
+        prioridad: "",
+      }))
+    );
+  
+    setItems(initialItems);
+    setStep(3); // Avanzar al paso de inspección
   };
-
+  
   // Función para mostrar el paso final
   const handleShowResults = () => {
     setStep(inspectionConfig?.steps.length + 3); // Avanzar al paso final
@@ -74,8 +84,7 @@ const CarInspectionWizard: React.FC = () => {
   }
 
   return (
-    <div className="container mx-auto p-4">
-      <h1 className="text-2xl font-bold mb-4">Inspección del Vehículo</h1>
+    <div className="container">
 
       {step === 1 && (
         <StepPlaca onPlateSubmit={handlePlateSubmit} />
@@ -84,14 +93,37 @@ const CarInspectionWizard: React.FC = () => {
       {step === 2 && vehicleData && isPlateValid && (
         <div>
           <StepVehicleData vehicleData={vehicleData} setStep={setStep} setItems={setItems} />
-          <h3 className="text-lg font-semibold">Selección de Inspección</h3>
-          <p className="mb-4">Selecciona el tipo de inspección a realizar:</p>
+          <h3 className="text-lg font-semibold">Selección de Servicio</h3>
+          <p className="mb-4">Selecciona el tipo de servicio a realizar:</p>
+          <div className="buttonservice-container">
+
           <button
             onClick={() => handleInspectionOptionChange("Checkeo General")}
             className="p-2 bg-blue-500 text-white rounded mb-4"
           >
             Checkeo General
           </button>
+          <button
+            onClick={() => handleInspectionOptionChange("Checkeo General")}
+            className="p-2 bg-blue-500 text-white rounded mb-4"
+          >
+            Mantenimiento
+          </button>
+          <button
+            onClick={() => handleInspectionOptionChange("Checkeo General")}
+            className="p-2 bg-blue-500 text-white rounded mb-4"
+          >
+            Autotronica
+          </button>
+          <button
+            onClick={() => handleInspectionOptionChange("Checkeo General")}
+            className="p-2 bg-blue-500 text-white rounded mb-4"
+          >
+            Remplazo de piezas
+          </button>
+
+          </div>
+
         </div>
       )}
 
@@ -127,7 +159,7 @@ const CarInspectionWizard: React.FC = () => {
       {step === inspectionConfig?.steps.length + 3 && <StepFinal items={items} />}
 
       {/* Botones de navegación */}
-      <div className="flex justify-between mt-4">
+      <div className="button-step">
         {step > 2 && step < inspectionConfig?.steps.length + 3 && (
           <>
             {step > 3 && (
