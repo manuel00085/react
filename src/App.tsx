@@ -16,15 +16,15 @@ const NAVIGATION: Navigation = [
     icon: <DashboardIcon />,
   },
   {
-    segment: 'Anadir ingreso',
-    title: 'Nuevo ingreso',
+    segment: 'employees',
+    title: 'Nuevo Ingreso',
     icon: <PersonIcon />,
     pattern: 'employees{/:employeeId}*',
   },
 ];
 
 const BRANDING = {
-  title: "react",
+  title: "Lycos Team",
 };
 
 
