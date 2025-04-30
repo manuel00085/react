@@ -16,8 +16,8 @@ const NAVIGATION: Navigation = [
     icon: <DashboardIcon />,
   },
   {
-    segment: 'employees',
-    title: 'Employees',
+    segment: 'Anadir ingreso',
+    title: 'Nuevo ingreso',
     icon: <PersonIcon />,
     pattern: 'employees{/:employeeId}*',
   },
