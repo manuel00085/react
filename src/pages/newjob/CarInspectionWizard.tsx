@@ -56,6 +56,30 @@ const CarInspectionWizard: React.FC = () => {
     fetchInspectionConfig();
   }, []);
 
+  const getSteps = () => {
+    const baseSteps = [
+      'Ingreso de Placa',
+      'Datos del Vehículo',
+    ];
+    
+    if (inspectionOption) {
+      const inspectionSteps = inspectionConfig.steps.map((step: any) => step.stepName);
+      return [...baseSteps, ...inspectionSteps, 'Resultados'];
+    }
+    
+    return [...baseSteps];
+  };
+
+  const steps = getSteps();
+
+  // Función para determinar el paso activo
+  const getActiveStep = () => {
+    if (step === 1) return 0;
+    if (step === 2) return 1;
+    if (step > 2 && step <= inspectionConfig?.steps.length + 2) return step - 1;
+    return steps.length - 1; // Resultados
+  };
+
   const handlePlateSubmit = (plate: string) => {
     setPlate(plate);
     const plateRegex = /^[A-Z0-9]{6}$/;
@@ -136,23 +160,25 @@ const CarInspectionWizard: React.FC = () => {
   }
 
   return (
-    <Container maxWidth="lg" sx={{ py: 4 }}>
-      <Paper elevation={3} sx={{ p: 4 }}>
-        <Stepper activeStep={step - 1} alternativeLabel sx={{ mb: 4 }}>
-          <Step>
-            <StepLabel>Ingreso de Placa</StepLabel>
-          </Step>
-          <Step>
-            <StepLabel>Datos del Vehículo</StepLabel>
-          </Step>
-          {inspectionOption && inspectionConfig.steps.map((stepItem: any, index: number) => (
+   
+      <Paper elevation={2} sx={{ py:5, px:2, mt:3 }}>
+        {/* Stepper adaptativo */}
+        <Stepper 
+          activeStep={getActiveStep()} 
+          alternativeLabel 
+          sx={{ 
+            mb: 4,
+            overflowX: 'auto',
+            '& .MuiStepLabel-root': {
+              minWidth: 100 // Ancho mínimo para cada paso
+            }
+          }}
+        >
+          {steps.map((label, index) => (
             <Step key={index}>
-              <StepLabel>{stepItem.stepName}</StepLabel>
+              <StepLabel>{label}</StepLabel>
             </Step>
           ))}
-          <Step>
-            <StepLabel>Resultados</StepLabel>
-          </Step>
         </Stepper>
 
         {step === 1 && (
@@ -256,7 +282,7 @@ const CarInspectionWizard: React.FC = () => {
           )}
         </Box>
       </Paper>
-    </Container>
+   
   );
 };
 

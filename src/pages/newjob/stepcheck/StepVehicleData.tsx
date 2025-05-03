@@ -45,7 +45,7 @@ const StepVehicleData: React.FC<Props> = ({ vehicleData, setStep, setItems }) =>
   };
 
   return (
-    <Paper elevation={3} sx={{ p: 4, maxWidth: 800, mx: 'auto' }}>
+    <Paper elevation={0} sx={{ p: 4, mx: 'auto' }}>
       <Typography variant="h5" component="h2" gutterBottom sx={{ fontWeight: 'bold', mb: 3 }}>
         Datos del Vehículo
       </Typography>
