@@ -1,7 +1,16 @@
 import React from "react";
+import { 
+  Box,
+  Typography,
+  TextField,
+  MenuItem,
+  Select,
+  FormControl,
+  InputLabel,
+  SelectChangeEvent
+} from "@mui/material";
 import { CheckItem } from "../types";
 
-// Definición del tipo de las propiedades que espera el componente
 type StepItemProps = {
   item: string;
   itemIndex: number;
@@ -12,49 +21,72 @@ type StepItemProps = {
 const StepItem: React.FC<StepItemProps> = ({ item, itemIndex, items, handleItemChange }) => {
   const currentItem = items[itemIndex];
 
+  const handleSelectChange = (field: keyof CheckItem) => (event: SelectChangeEvent) => {
+    handleItemChange(itemIndex, field, event.target.value as string);
+  };
+
+  const handleTextChange = (field: keyof CheckItem) => (event: React.ChangeEvent<HTMLInputElement>) => {
+    handleItemChange(itemIndex, field, event.target.value);
+  };
+
   return (
-    <div key={itemIndex} className="step-item">
-      <h4>{item}</h4>
-      <div className="mb-2">
-        <label>Estado:</label>
-        <select
+    <Box 
+      sx={{ 
+        p: 3, 
+        mb: 3, 
+        border: 1, 
+        borderColor: 'divider', 
+        borderRadius: 1,
+        backgroundColor: 'background.paper'
+      }}
+    >
+      <Typography variant="h6" gutterBottom>
+        {item}
+      </Typography>
+
+      <FormControl fullWidth sx={{ mb: 2 }}>
+        <InputLabel id={`estado-label-${itemIndex}`}>Estado</InputLabel>
+        <Select
+          labelId={`estado-label-${itemIndex}`}
           value={currentItem?.estado || ""}
-          onChange={(e) => handleItemChange(itemIndex, "estado", e.target.value)}
-          className="w-full p-2 border rounded"
+          onChange={handleSelectChange("estado")}
+          label="Estado"
         >
-          <option value="">Seleccione...</option>
-          <option value="OK">OK</option>
-          <option value="Requiere Atención">Requiere Atención</option>
-          <option value="Requiere Reparación Urgente">Requiere Reparación Urgente</option>
-          <option value="No Aplica">No Aplica</option>
-        </select>
-      </div>
-      <div className="mb-2">
-        <label>Observaciones:</label>
-        <textarea
-          value={currentItem?.observaciones || ""}
-          onChange={(e) => handleItemChange(itemIndex, "observaciones", e.target.value)}
-          className="w-full p-2 border rounded"
-          rows={2}
-        />
-      </div>
-      {/* Mostrar Prioridad solo si el estado es "Requiere Atención" */}
+          <MenuItem value=""><em>Seleccione...</em></MenuItem>
+          <MenuItem value="OK">OK</MenuItem>
+          <MenuItem value="Requiere Atención">Requiere Atención</MenuItem>
+          <MenuItem value="Requiere Reparación Urgente">Requiere Reparación Urgente</MenuItem>
+          <MenuItem value="No Aplica">No Aplica</MenuItem>
+        </Select>
+      </FormControl>
+
+      <TextField
+        label="Observaciones"
+        value={currentItem?.observaciones || ""}
+        onChange={handleTextChange("observaciones")}
+        fullWidth
+        multiline
+        rows={3}
+        sx={{ mb: 2 }}
+      />
+
       {currentItem?.estado === "Requiere Atención" && (
-        <div className="mb-2">
-          <label>Prioridad:</label>
-          <select
+        <FormControl fullWidth sx={{ mb: 2 }}>
+          <InputLabel id={`prioridad-label-${itemIndex}`}>Prioridad</InputLabel>
+          <Select
+            labelId={`prioridad-label-${itemIndex}`}
             value={currentItem?.prioridad || ""}
-            onChange={(e) => handleItemChange(itemIndex, "prioridad", e.target.value)}
-            className="w-full p-2 border rounded"
+            onChange={handleSelectChange("prioridad")}
+            label="Prioridad"
           >
-            <option value="">Seleccione...</option>
-            <option value="Baja">Baja</option>
-            <option value="Media">Media</option>
-            <option value="Alta">Alta</option>
-          </select>
-        </div>
+            <MenuItem value=""><em>Seleccione...</em></MenuItem>
+            <MenuItem value="Baja">Baja</MenuItem>
+            <MenuItem value="Media">Media</MenuItem>
+            <MenuItem value="Alta">Alta</MenuItem>
+          </Select>
+        </FormControl>
       )}
-    </div>
+    </Box>
   );
 };
 

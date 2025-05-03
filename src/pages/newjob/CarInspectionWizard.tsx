@@ -1,39 +1,66 @@
 import React, { useState, useEffect } from "react";
+import {
+  Box,
+  Typography,
+  Button,
+  Grid,
+  Paper,
+  CircularProgress,
+  Alert,
+  Container,
+  Stepper,
+  Step,
+  StepLabel,
+  Card,
+  CardContent
+} from "@mui/material";
+import {
+  DirectionsCar as CarIcon,
+  Build as BuildIcon,
+  CheckCircle as CheckCircleIcon,
+  Assignment as ReportIcon
+} from "@mui/icons-material";
 import StepPlaca from "./stepcheck/StepPlaca";
 import StepVehicleData from "./stepcheck/StepVehicleData";
-import StepItem from "./stepcheck/StepItem"; // Paso genérico para ítems de inspección
-import StepFinal from "./stepcheck/StepFinal"; // Paso final
+import StepItem from "./stepcheck/StepItem";
+import StepFinal from "./stepcheck/StepFinal";
 import { CheckItem } from "./types";
 
 const CarInspectionWizard: React.FC = () => {
-  const [step, setStep] = useState(1); // Paso actual
-  const [plate, setPlate] = useState<string>(""); // Placa del vehículo
-  const [vehicleData, setVehicleData] = useState<any>(null); // Datos del vehículo
-  const [isPlateValid, setIsPlateValid] = useState<boolean>(false); // Estado para validar la placa
-  const [items, setItems] = useState<CheckItem[]>([]); // Lista de ítems de inspección
-  const [inspectionOption, setInspectionOption] = useState<string | null>(null); // Opción de inspección seleccionada
-  const [inspectionConfig, setInspectionConfig] = useState<any>(null); // Configuración de inspección
+  const [step, setStep] = useState(1);
+  const [plate, setPlate] = useState<string>("");
+  const [vehicleData, setVehicleData] = useState<any>(null);
+  const [isPlateValid, setIsPlateValid] = useState<boolean>(false);
+  const [items, setItems] = useState<CheckItem[]>([]);
+  const [inspectionOption, setInspectionOption] = useState<string | null>(null);
+  const [inspectionConfig, setInspectionConfig] = useState<any>(null);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
 
-  // Cargar el JSON de configuración
   useEffect(() => {
     const fetchInspectionConfig = async () => {
       try {
+        setLoading(true);
         const response = await fetch("/inspectionConfig.json");
+        if (!response.ok) throw new Error("Error al cargar configuración");
         const data = await response.json();
-        setInspectionConfig(data); // Actualizamos el estado con la configuración del JSON
-      } catch (error) {
-        console.error("Error al cargar el JSON de configuración:", error);
+        setInspectionConfig(data);
+        setError(null);
+      } catch (err) {
+        console.error("Error:", err);
+        setError("No se pudo cargar la configuración de inspección");
+      } finally {
+        setLoading(false);
       }
     };
     fetchInspectionConfig();
   }, []);
 
-  // Función para manejar la placa y cargar los datos del vehículo
   const handlePlateSubmit = (plate: string) => {
     setPlate(plate);
-    const plateRegex = /^[A-Z0-9]{6}$/; // Ejemplo de validación simple
+    const plateRegex = /^[A-Z0-9]{6}$/;
     if (plateRegex.test(plate)) {
-      setIsPlateValid(true); // Si la placa es válida
+      setIsPlateValid(true);
       setVehicleData({
         marca: "Toyota",
         modelo: "Corolla",
@@ -41,13 +68,13 @@ const CarInspectionWizard: React.FC = () => {
         historialServicio: ["Cambio de aceite", "Reemplazo de frenos"],
         cliente: { nombre: "Juan Pérez", telefono: "123456789" }
       });
-      setStep(2); // Avanzar al siguiente paso
+      setStep(2);
     } else {
-      setIsPlateValid(false); // Si la placa no es válida
+      setIsPlateValid(false);
+      setError("Formato de placa inválido");
     }
   };
 
-  // Función para manejar los cambios en los ítems de inspección
   const handleItemChange = (index: number, field: string, value: string) => {
     const updatedItems = [...items];
     updatedItems[index] = {
@@ -57,7 +84,6 @@ const CarInspectionWizard: React.FC = () => {
     setItems(updatedItems);
   };
 
-  // Función para manejar la opción de inspección seleccionada
   const handleInspectionOptionChange = (option: string) => {
     setInspectionOption(option);
   
@@ -71,117 +97,166 @@ const CarInspectionWizard: React.FC = () => {
     );
   
     setItems(initialItems);
-    setStep(3); // Avanzar al paso de inspección
+    setStep(3);
   };
   
-  // Función para mostrar el paso final
   const handleShowResults = () => {
-    setStep(inspectionConfig?.steps.length + 3); // Avanzar al paso final
+    setStep(inspectionConfig?.steps.length + 3);
   };
 
+  const serviceOptions = [
+    { name: "Checkeo General", icon: <CheckCircleIcon /> },
+    { name: "Mantenimiento", icon: <BuildIcon /> },
+    { name: "Autotrónica", icon: <CarIcon /> },
+    { name: "Reemplazo de piezas", icon: <BuildIcon /> }
+  ];
+
+  if (loading) {
+    return (
+      <Box display="flex" justifyContent="center" alignItems="center" minHeight="80vh">
+        <CircularProgress />
+      </Box>
+    );
+  }
+
+  if (error) {
+    return (
+      <Container maxWidth="md" sx={{ mt: 4 }}>
+        <Alert severity="error">{error}</Alert>
+      </Container>
+    );
+  }
+
   if (!inspectionConfig) {
-    return <div>Cargando configuración...</div>; // Mientras se carga el JSON
+    return (
+      <Container maxWidth="md" sx={{ mt: 4 }}>
+        <Alert severity="warning">No se encontró configuración de inspección</Alert>
+      </Container>
+    );
   }
 
   return (
-    <div className="container">
-
-      {step === 1 && (
-        <StepPlaca onPlateSubmit={handlePlateSubmit} />
-      )}
-
-      {step === 2 && vehicleData && isPlateValid && (
-        <div>
-          <StepVehicleData vehicleData={vehicleData} setStep={setStep} setItems={setItems} />
-          <h3 className="text-lg font-semibold">Selección de Servicio</h3>
-          <p className="mb-4">Selecciona el tipo de servicio a realizar:</p>
-          <div className="buttonservice-container">
-
-          <button
-            onClick={() => handleInspectionOptionChange("Checkeo General")}
-            className="p-2 bg-blue-500 text-white rounded mb-4"
-          >
-            Checkeo General
-          </button>
-          <button
-            onClick={() => handleInspectionOptionChange("Checkeo General")}
-            className="p-2 bg-blue-500 text-white rounded mb-4"
-          >
-            Mantenimiento
-          </button>
-          <button
-            onClick={() => handleInspectionOptionChange("Checkeo General")}
-            className="p-2 bg-blue-500 text-white rounded mb-4"
-          >
-            Autotronica
-          </button>
-          <button
-            onClick={() => handleInspectionOptionChange("Checkeo General")}
-            className="p-2 bg-blue-500 text-white rounded mb-4"
-          >
-            Remplazo de piezas
-          </button>
-
-          </div>
-
-        </div>
-      )}
-
-      {/* Renderizamos los pasos del JSON después de la selección de inspección */}
-      {inspectionOption === "Checkeo General" && inspectionConfig.steps[step - 3] && (
-        <div key={step}>
-          <h3 className="text-xl font-semibold">{inspectionConfig.steps[step - 3].stepName}</h3>
-          {inspectionConfig.steps[step - 3].items.map((item, itemIndex) => (
-            <StepItem
-              key={itemIndex}
-              item={item.name}
-              itemIndex={itemIndex}
-              items={items}
-              handleItemChange={handleItemChange}
-            />
+    <Container maxWidth="lg" sx={{ py: 4 }}>
+      <Paper elevation={3} sx={{ p: 4 }}>
+        <Stepper activeStep={step - 1} alternativeLabel sx={{ mb: 4 }}>
+          <Step>
+            <StepLabel>Ingreso de Placa</StepLabel>
+          </Step>
+          <Step>
+            <StepLabel>Datos del Vehículo</StepLabel>
+          </Step>
+          {inspectionOption && inspectionConfig.steps.map((stepItem: any, index: number) => (
+            <Step key={index}>
+              <StepLabel>{stepItem.stepName}</StepLabel>
+            </Step>
           ))}
-        </div>
-      )}
+          <Step>
+            <StepLabel>Resultados</StepLabel>
+          </Step>
+        </Stepper>
 
-      {/* Mostrar el botón de resultados solo si estamos en el último paso de inspección */}
-      {step === inspectionConfig?.steps.length + 2 && (
-        <div>
-          <button
-            onClick={handleShowResults}
-            className="p-2 bg-green-500 text-white rounded"
-          >
-            Ver Resultados
-          </button>
-        </div>
-      )}
-
-      {/* Renderizamos el paso final solo cuando se ha hecho clic en "Ver Resultados" */}
-      {step === inspectionConfig?.steps.length + 3 && <StepFinal items={items} />}
-
-      {/* Botones de navegación */}
-      <div className="button-step">
-        {step > 2 && step < inspectionConfig?.steps.length + 3 && (
-          <>
-            {step > 3 && (
-              <button
-                onClick={() => setStep(step - 1)}
-                className="p-2 bg-gray-300 rounded"
-              >
-                Anterior
-              </button>
-            )}
-            {step < inspectionConfig?.steps.length + 2 && (
-              <button
-                onClick={() => setStep(step + 1)}
-                className="p-2 bg-blue-500 text-white rounded"
-              >
-                Siguiente
-              </button>
-            )}
-          </>
+        {step === 1 && (
+          <StepPlaca onPlateSubmit={handlePlateSubmit} />
         )}
-      </div>
-    </div>
+
+        {step === 2 && vehicleData && isPlateValid && (
+          <Box>
+            <StepVehicleData vehicleData={vehicleData} setStep={setStep} setItems={setItems} />
+            
+            <Typography variant="h6" component="h3" sx={{ mt: 4, mb: 2 }}>
+              Selección de Servicio
+            </Typography>
+            <Typography variant="body1" sx={{ mb: 3 }}>
+              Selecciona el tipo de servicio a realizar:
+            </Typography>
+            
+            <Grid container spacing={2}>
+              {serviceOptions.map((option) => (
+                <Grid item xs={12} sm={6} md={3} key={option.name}>
+                  <Card 
+                    sx={{ 
+                      cursor: 'pointer',
+                      '&:hover': {
+                        boxShadow: 3,
+                        borderColor: 'primary.main'
+                      }
+                    }}
+                    onClick={() => handleInspectionOptionChange(option.name)}
+                  >
+                    <CardContent sx={{ textAlign: 'center' }}>
+                      <Box sx={{ color: 'primary.main', fontSize: 40, mb: 1 }}>
+                        {option.icon}
+                      </Box>
+                      <Typography variant="subtitle1">{option.name}</Typography>
+                    </CardContent>
+                  </Card>
+                </Grid>
+              ))}
+            </Grid>
+          </Box>
+        )}
+
+        {inspectionOption === "Checkeo General" && inspectionConfig.steps[step - 3] && (
+          <Box key={step}>
+            <Typography variant="h5" component="h3" sx={{ mb: 3 }}>
+              {inspectionConfig.steps[step - 3].stepName}
+            </Typography>
+            {inspectionConfig.steps[step - 3].items.map((item: any, itemIndex: number) => (
+              <StepItem
+                key={itemIndex}
+                item={item.name}
+                itemIndex={itemIndex}
+                items={items}
+                handleItemChange={handleItemChange}
+              />
+            ))}
+          </Box>
+        )}
+
+        {step === inspectionConfig?.steps.length + 2 && (
+          <Box sx={{ display: 'flex', justifyContent: 'center', mt: 3 }}>
+            <Button
+              variant="contained"
+              color="success"
+              size="large"
+              endIcon={<ReportIcon />}
+              onClick={handleShowResults}
+              sx={{ px: 4 }}
+            >
+              Ver Resultados
+            </Button>
+          </Box>
+        )}
+
+        {step === inspectionConfig?.steps.length + 3 && (
+          <StepFinal items={items} />
+        )}
+
+        <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 4 }}>
+          {step > 2 && step < inspectionConfig?.steps.length + 3 && (
+            <>
+              {step > 3 && (
+                <Button
+                  variant="outlined"
+                  onClick={() => setStep(step - 1)}
+                >
+                  Anterior
+                </Button>
+              )}
+              {step < inspectionConfig?.steps.length + 2 && (
+                <Button
+                  variant="contained"
+                  onClick={() => setStep(step + 1)}
+                  sx={{ ml: 'auto' }}
+                >
+                  Siguiente
+                </Button>
+              )}
+            </>
+          )}
+        </Box>
+      </Paper>
+    </Container>
   );
 };
 

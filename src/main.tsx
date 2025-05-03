@@ -3,10 +3,11 @@ import * as ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router';
 import App from './App';
 import Layout from './layouts/dashboard';
-import DashboardPage from './pages';
+
 import CarInspectionWizard from './pages/newjob/CarInspectionWizard';
 import EmployeeForm from "./pages/empleados/createEmployer"
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import HomePage from "./pages/Home"
 
 
 const router = createBrowserRouter([
@@ -17,14 +18,24 @@ const router = createBrowserRouter([
         path: '/',
         Component: Layout,
         children: [
-          {
-            path: '',
-            Component: DashboardPage,
+          {index: true,
+            Component:HomePage
           },
           {
-            path: 'employees',
-            Component: EmployeeForm ,
+            path: "home",
+            Component: HomePage
+
           },
+          {
+            path: 'Mecanicos/nuevo',
+            Component: EmployeeForm
+          },
+          {
+            path: 'placa',
+            Component: CarInspectionWizard
+          },
+        
+        
         ],
       },
     ],

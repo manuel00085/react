@@ -16,15 +16,15 @@ import { ReactRouterAppProvider } from '@toolpad/core/react-router';
 const NAVIGATION: Navigation = [
   {
     kind: 'header',
-    title: 'Principal',
+    title: 'Dashboard',
   },
   {
-    segment: 'dashboard',
-    title: 'Dashboard',
+    segment: 'Home',
+    title: 'Home',
     icon: <DashboardIcon />,
   },
   {
-    segment: 'dashboard',
+    segment: 'placa',
     title: 'Busqueda por placa',
     icon: <DashboardIcon />,
   },
@@ -59,8 +59,8 @@ const NAVIGATION: Navigation = [
     title: 'Gestión de Personal',
   },
   {
-    segment: 'empleados',
-    title: 'Empleados',
+    segment: 'Mecanicos',
+    title: 'Mecanicos',
     icon: <PersonIcon />,
     children: [
       {
@@ -86,25 +86,58 @@ const NAVIGATION: Navigation = [
     title: 'Estadisticas globales',
   },
   {
-    segment: 'empleados',
-    title: 'Empleados',
+    segment: 'Personal',
+    title: 'Personal',
     icon: <PersonIcon />,
     children: [
       {
-        segment: 'nuevo',
-        title: 'Nuevo Ingreso',
+        segment: 'Horarios',
+        title: 'Horarios',
         icon: <PersonIcon />,
       },
       {
-        segment: 'lista',
-        title: 'Lista de Empleados',
+        segment: 'Rendimineto',
+        title: 'Rendimiento',
         icon: <PeopleIcon />,
+      },
+
+    ],
+  },
+  {
+    segment: 'Clientes',
+    title: 'Clientes',
+    icon: <PersonIcon />,
+    children: [
+      {
+        segment: 'Horarios',
+        title: 'Horarios',
+        icon: <PersonIcon />,
       },
       {
-        segment: 'Metricas',
-        title: 'Rendimiento de Empleados',
+        segment: 'Rendimineto',
+        title: 'Rendimiento',
+        icon: <PeopleIcon />,
+        
+      },
+
+    ],
+  },
+  {
+    segment: 'Vehiculos',
+    title: 'Vehiculos',
+    icon: <PersonIcon />,
+    children: [
+      {
+        segment: 'Horarios',
+        title: 'Horarios',
+        icon: <PersonIcon />,
+      },
+      {
+        segment: 'Rendimineto',
+        title: 'Rendimiento',
         icon: <PeopleIcon />,
       },
+
     ],
   },
   {
@@ -157,27 +190,17 @@ function PageContent({ pathname }: { pathname: string }) {
   );
 }
 
-interface Props {
-  window?: () => Window;
-}
 
-export default function App(props: Props) {
-  const { window } = props;
 
-  const router = useDemoRouter('/dashboard'); // ruta inicial
-  const currentWindow = window !== undefined ? window() : undefined;
+export default function App() {
+
 
   return (
     <ReactRouterAppProvider 
       navigation={NAVIGATION}
-      router={router}
-      theme={theme}
-      window={currentWindow}
       branding={{ title: 'Lycos Team' }}
     >
-      <DashboardLayout>
       <Outlet />
-      </DashboardLayout>
     </ReactRouterAppProvider >
   );
 }

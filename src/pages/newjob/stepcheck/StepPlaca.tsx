@@ -1,4 +1,13 @@
 import React, { useState } from "react";
+import {
+  Box,
+  Typography,
+  TextField,
+  Button,
+  Alert,
+  Paper
+} from "@mui/material";
+import SearchIcon from '@mui/icons-material/Search';
 
 type Props = {
   onPlateSubmit: (plate: string) => void;
@@ -6,35 +15,57 @@ type Props = {
 
 const StepPlaca: React.FC<Props> = ({ onPlateSubmit }) => {
   const [plate, setPlate] = useState<string>("");
+  const [error, setError] = useState<string>("");
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (plate) {
+    if (plate.trim()) {
       onPlateSubmit(plate);
+      setError("");
     } else {
-      alert("Por favor ingresa la placa del vehículo");
+      setError("Por favor ingresa la placa del vehículo");
     }
   };
 
   return (
-    <div>
-      <h3 className="text-lg font-semibold">Ingrese la placa del vehículo</h3>
-      <form onSubmit={handleSubmit} className="mt-4">
-        <input
-          type="text"
+    <Paper elevation={3} sx={{ p: 3, maxWidth: 500, mx: 'auto' }}>
+      <Typography variant="h6" component="h3" gutterBottom>
+        Ingrese la placa del vehículo
+      </Typography>
+      
+      <Box 
+        component="form" 
+        onSubmit={handleSubmit}
+        sx={{ mt: 2 }}
+      >
+        <TextField
+          fullWidth
+          label="Placa del vehículo"
+          variant="outlined"
           value={plate}
           onChange={(e) => setPlate(e.target.value)}
-          placeholder="Placa del vehículo"
-          className="p-2 border rounded w-full"
+          placeholder="Ejemplo: ABC-123"
+          sx={{ mb: 2 }}
         />
-        <button
+        
+        {error && (
+          <Alert severity="error" sx={{ mb: 2 }}>
+            {error}
+          </Alert>
+        )}
+        
+        <Button
           type="submit"
-          className="mt-2 p-2 bg-blue-500 text-white rounded"
+          variant="contained"
+          color="primary"
+          startIcon={<SearchIcon />}
+          fullWidth
+          size="large"
         >
           Buscar vehículo
-        </button>
-      </form>
-    </div>
+        </Button>
+      </Box>
+    </Paper>
   );
 };
 
