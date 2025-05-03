@@ -5,6 +5,8 @@ import App from './App';
 import Layout from './layouts/dashboard';
 import DashboardPage from './pages';
 import CarInspectionWizard from './pages/newjob/CarInspectionWizard';
+import EmployeeForm from "./pages/empleados/createEmployer"
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 
 const router = createBrowserRouter([
@@ -20,8 +22,8 @@ const router = createBrowserRouter([
             Component: DashboardPage,
           },
           {
-            path: 'employees/:employeeId?/*',
-            Component: CarInspectionWizard,
+            path: 'employees',
+            Component: EmployeeForm ,
           },
         ],
       },
