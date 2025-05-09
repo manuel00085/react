@@ -5,9 +5,9 @@ import {
   TextField,
   Button,
   Alert,
-  Paper
+  Paper,
 } from "@mui/material";
-import SearchIcon from '@mui/icons-material/Search';
+import SearchIcon from "@mui/icons-material/Search";
 
 type Props = {
   onPlateSubmit: (plate: string) => void;
@@ -28,39 +28,45 @@ const StepPlaca: React.FC<Props> = ({ onPlateSubmit }) => {
   };
 
   return (
-    <Paper elevation={3} sx={{ p: 3, maxWidth: 500, mx: 'auto' }}>
+    <Paper elevation={0} sx={{ p: 0, maxWidth: 650, mx: "auto", my: 10 }}>
       <Typography variant="h6" component="h3" gutterBottom>
         Ingrese la placa del vehículo
       </Typography>
-      
-      <Box 
-        component="form" 
-        onSubmit={handleSubmit}
-        sx={{ mt: 2 }}
-      >
+
+      <Box component="form" onSubmit={handleSubmit} sx={{ mt: 2 }}>
         <TextField
           fullWidth
           label="Placa del vehículo"
           variant="outlined"
           value={plate}
-          onChange={(e) => setPlate(e.target.value)}
-          placeholder="Ejemplo: ABC-123"
-          sx={{ mb: 2 }}
+          onChange={(e) => {
+            const value = e.target.value.toUpperCase(); // Convertir a mayúsculas
+            if (/^[A-Z0-9]*$/.test(value)) {
+              // Permitir solo letras mayúsculas y números
+              setPlate(value);
+            }
+          }}
+          placeholder="Ejemplo: ABC123"
+          sx={{ mb: 2, mt: 2 }}
+          inputProps={{ maxLength: 10 }} // Limitar la cantidad de caracteres
         />
-        
+
         {error && (
           <Alert severity="error" sx={{ mb: 2 }}>
             {error}
           </Alert>
         )}
-        
+
         <Button
           type="submit"
           variant="contained"
           color="primary"
           startIcon={<SearchIcon />}
           fullWidth
-          size="large"
+          size="medium"
+          sx={{
+            marginTop: 3,
+          }}
         >
           Buscar vehículo
         </Button>

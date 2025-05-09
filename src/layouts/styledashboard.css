@@ -1,0 +1,9 @@
+.outlet{
+padding: 40px;
+}
+
+@media (max-width: 600px) {
+    .outlet{
+        padding: 15px;
+        }
+}
