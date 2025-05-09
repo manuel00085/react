@@ -13,172 +13,204 @@ import { useDemoRouter } from "@toolpad/core/internal";
 import { Outlet } from "react-router-dom";
 import { ReactRouterAppProvider } from "@toolpad/core/react-router";
 
-// const NAVIGATION: Navigation = [
-//   {
-//     kind: 'header',
-//     title: 'Dashboard',
-//   },
-//   {
-//     segment: 'Home',
-//     title: 'Home',
-//     icon: <DashboardIcon />,
-//   },
-//   {
-//     segment: 'placa',
-//     title: 'Busqueda por placa',
-//     icon: <DashboardIcon />,
-//   },
-//   {
-//     kind: 'header',
-//     title: 'Gestión de Talleres',
-//   },
-//   {
-//     segment: 'talleres',
-//     title: 'Talleres',
-//     icon: <PersonIcon />,
-//     children: [
-//       {
-//         segment: 'nuevo',
-//         title: 'Nuevo Taller',
-//         icon: <PersonIcon />,
-//       },
-//       {
-//         segment: 'lista',
-//         title: 'Lista de Talleres',
-//         icon: <PeopleIcon />,
-//       },
-//       {
-//         segment: 'Metricas',
-//         title: 'Rendimiento de los Talleres',
-//         icon: <PeopleIcon />,
-//       },
-//     ],
-//   },
-//   {
-//     kind: 'header',
-//     title: 'Gestión de Personal',
-//   },
-//   {
-//     segment: 'Mecanicos',
-//     title: 'Mecanicos',
-//     icon: <PersonIcon />,
-//     children: [
-//       {
-//         segment: 'nuevo',
-//         title: 'Nuevo Ingreso',
-//         icon: <PersonIcon />,
-//       },
-//       {
-//         segment: 'lista',
-//         title: 'Lista de Empleados',
-//         icon: <PeopleIcon />,
-//       },
-//       {
-//         segment: 'Metricas',
-//         title: 'Rendimiento de Empleados',
-//         icon: <PeopleIcon />,
-//       },
-//     ],
-//   },
-
-//   {
-//     kind: 'header',
-//     title: 'Estadisticas globales',
-//   },
-//   {
-//     segment: 'Personal',
-//     title: 'Personal',
-//     icon: <PersonIcon />,
-//     children: [
-//       {
-//         segment: 'Horarios',
-//         title: 'Horarios',
-//         icon: <PersonIcon />,
-//       },
-//       {
-//         segment: 'Rendimineto',
-//         title: 'Rendimiento',
-//         icon: <PeopleIcon />,
-//       },
-
-//     ],
-//   },
-//   {
-//     segment: 'Clientes',
-//     title: 'Clientes',
-//     icon: <PersonIcon />,
-//     children: [
-//       {
-//         segment: 'Horarios',
-//         title: 'Horarios',
-//         icon: <PersonIcon />,
-//       },
-//       {
-//         segment: 'Rendimineto',
-//         title: 'Rendimiento',
-//         icon: <PeopleIcon />,
-
-//       },
-
-//     ],
-//   },
-//   {
-//     segment: 'Vehiculos',
-//     title: 'Vehiculos',
-//     icon: <PersonIcon />,
-//     children: [
-//       {
-//         segment: 'Horarios',
-//         title: 'Horarios',
-//         icon: <PersonIcon />,
-//       },
-//       {
-//         segment: 'Rendimineto',
-//         title: 'Rendimiento',
-//         icon: <PeopleIcon />,
-//       },
-
-//     ],
-//   },
-//   {
-//     kind: 'header',
-//     title: 'Configuración',
-//   },
-//   {
-//     segment: 'config',
-//     title: 'Usuarios y Roles',
-//     icon: <SettingsIcon />,
-//     children: [
-//       {
-//         segment: 'roles',
-//         title: 'Roles del Sistema',
-//         icon: <AdminPanelSettingsIcon />,
-//       },
-//     ],
-//   },
-// ];
+// Menu Superusuario
 
 const NAVIGATION: Navigation = [
   {
-    kind: "header",
-    title: "Dashboard Mecanicos",
+    kind: 'header',
+    title: 'Dashboard Admin',
   },
   {
-    segment: "Home",
-    title: "Home",
+    segment: 'Home',
+    title: 'Home',
     icon: <DashboardIcon />,
   },
   {
-    segment: "Asignados",
-    title: "Autos Asignados",
+    segment: 'placa',
+    title: 'Busqueda por placa',
     icon: <DashboardIcon />,
   },
   {
-    segment: "placa",
-    title: "Nuevo Ingreso ",
-    icon: <DashboardIcon />,
+    kind: 'header',
+    title: 'Gestión',
+  },
+  {
+    segment: 'talleres',
+    title: 'Talleres',
+    icon: <PersonIcon />,
+    children: [
+      {
+        segment: 'nuevo',
+        title: 'Nuevo Taller',
+        icon: <PersonIcon />,
+      },
+      {
+        segment: 'lista',
+        title: 'Lista de Talleres',
+        icon: <PeopleIcon />,
+      },
+      {
+        segment: 'Metricas',
+        title: 'Rendimiento de los Talleres',
+        icon: <PeopleIcon />,
+      },
+    ],
+  },
+  {
+    kind: 'header',
+    title: 'Gestión de Personal',
+  },
+  {
+    segment: 'Mecanicos',
+    title: 'Mecanicos',
+    icon: <PersonIcon />,
+    children: [
+      {
+        segment: 'nuevo',
+        title: 'Nuevo Ingreso',
+        icon: <PersonIcon />,
+      },
+      {
+        segment: 'lista',
+        title: 'Lista de Empleados',
+        icon: <PeopleIcon />,
+      },
+      {
+        segment: 'Metricas',
+        title: 'Rendimiento de Empleados',
+        icon: <PeopleIcon />,
+      },
+    ],
+  },
+
+  {
+    kind: 'header',
+    title: 'Estadisticas globales',
+  },
+  {
+    segment: 'Personal',
+    title: 'Personal',
+    icon: <PersonIcon />,
+    children: [
+      {
+        segment: 'Horarios',
+        title: 'Horarios',
+        icon: <PersonIcon />,
+      },
+      {
+        segment: 'Rendimineto',
+        title: 'Rendimiento',
+        icon: <PeopleIcon />,
+      },
+
+    ],
+  },
+  {
+    segment: 'Clientes',
+    title: 'Clientes',
+    icon: <PersonIcon />,
+    children: [
+      {
+        segment: 'Horarios',
+        title: 'Horarios',
+        icon: <PersonIcon />,
+      },
+      {
+        segment: 'Rendimineto',
+        title: 'Rendimiento',
+        icon: <PeopleIcon />,
+
+      },
+
+    ],
+  },
+  {
+    segment: 'Vehiculos',
+    title: 'Vehiculos',
+    icon: <PersonIcon />,
+    children: [
+      {
+        segment: 'Horarios',
+        title: 'Horarios',
+        icon: <PersonIcon />,
+      },
+      {
+        segment: 'Rendimineto',
+        title: 'Rendimiento',
+        icon: <PeopleIcon />,
+      },
+
+    ],
+  },
+  {
+    kind: 'header',
+    title: 'Configuración',
+  },
+  {
+    segment: 'config',
+    title: 'Usuarios y Roles',
+    icon: <SettingsIcon />,
+    children: [
+      {
+        segment: 'roles',
+        title: 'Roles del Sistema',
+        icon: <AdminPanelSettingsIcon />,
+      },
+    ],
   },
 ];
+
+
+// menu Mecanico
+
+// const NAVIGATION: Navigation = [
+//   {
+//     kind: "header",
+//     title: "Dashboard Mecanicos",
+//   },
+//   {
+//     segment: "Home",
+//     title: "Home",
+//     icon: <DashboardIcon />,
+//   },
+//   {
+//     segment: "Asignados",
+//     title: "Autos Asignados",
+//     icon: <DashboardIcon />,
+//   },
+//   {
+//     segment: "placa",
+//     title: "Nuevo Ingreso ",
+//     icon: <DashboardIcon />,
+//   },
+// ];
+
+
+//Menu talleres
+
+
+// const NAVIGATION: Navigation = [
+//   {
+//     kind: "header",
+//     title: "Dashboard Talleres",
+//   },
+//   {
+//     segment: "Home",
+//     title: "Home",
+//     icon: <DashboardIcon />,
+//   },
+//   {
+//     segment: "Asignados",
+//     title: "Autos Asignados",
+//     icon: <DashboardIcon />,
+//   },
+//   {
+//     segment: "placa",
+//     title: "Nuevo Ingreso ",
+//     icon: <DashboardIcon />,
+//   },
+// ];
+
 
 const theme = createTheme({
   cssVariables: {
